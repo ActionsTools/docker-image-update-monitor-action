@@ -36,5 +36,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: 'sharelatex/sharelatex_latest'
-        path: 'sharelatex/sharelatex_latest.json'
+        path: 'sharelatex#sharelatex_latest.json'
         retention-days: 1
