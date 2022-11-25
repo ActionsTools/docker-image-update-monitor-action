@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     # Every 30 minute
-    - cron: '*/30 * * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   test:
@@ -16,6 +16,7 @@ jobs:
 
     - name: Download possible cache file
       uses: actions/download-artifact@v3
+      continue-on-error: true
       with:
         name: 'sharelatex/sharelatex_latest'
 
@@ -25,6 +26,11 @@ jobs:
       with: 
         image: 'sharelatex/sharelatex'
         tag: 'latest'
+
+    - name: Show results
+      run: |
+        echo ${{ steps.dockerhub_latest.outputs.has_update }}
+        echo ${{ steps.dockerhub_latest.outputs.update_time }}
 
     - name: Upload cache file
       uses: actions/upload-artifact@v3
