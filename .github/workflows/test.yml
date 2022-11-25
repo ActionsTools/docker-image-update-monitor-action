@@ -17,7 +17,10 @@ jobs:
     - name: Cache file
       uses: actions/cache@v3
       with:
-        key: sharelatex#sharelatex_latest-${{ hashFiles('sharelatex#sharelatex_latest.json') }}
+        # TODO: Still bug here, no such file
+        key: sharelatex#sharelatex_latest-${{ github.run_attempt }}
+        restore-key: |
+          sharelatex#sharelatex_latest-
         path: sharelatex#sharelatex_latest.json
 
     - name: Check DockerHub image with latest tag
