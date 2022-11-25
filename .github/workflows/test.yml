@@ -14,11 +14,11 @@ jobs:
       with:
         path: "./"
 
-    - name: Download possible cache file
-      uses: actions/download-artifact@v3
-      continue-on-error: true
+    - name: Cache file
+      uses: actions/cache@v3
       with:
-        name: 'sharelatex#sharelatex_latest'
+        key: sharelatex#sharelatex_latest
+        path: sharelatex#sharelatex_latest.json
 
     - name: Check DockerHub image with latest tag
       id: dockerhub_latest
@@ -31,10 +31,3 @@ jobs:
       run: |
         echo ${{ steps.dockerhub_latest.outputs.has_update }}
         echo ${{ steps.dockerhub_latest.outputs.update_time }}
-
-    - name: Upload cache file
-      uses: actions/upload-artifact@v3
-      with:
-        name: 'sharelatex#sharelatex_latest'
-        path: 'sharelatex#sharelatex_latest.json'
-        retention-days: 1
