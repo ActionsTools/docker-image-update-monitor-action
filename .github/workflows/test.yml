@@ -14,10 +14,10 @@ jobs:
       with:
         path: "./"
 
+      # Restore the cache saved in the last run
     - name: Cache file
       uses: actions/cache@v3
       with:
-        # TODO: Still bug here, no such file
         key: sharelatex#sharelatex_latest-${{ github.run_number }}
         restore-keys: |
           sharelatex#sharelatex_latest-
