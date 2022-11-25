@@ -1,0 +1,24 @@
+name: 'Docker Image Update Monitor'
+description: 'Monitor docker images update on image dockerhub using GitHub Actions'
+inputs:
+  image:
+    description: 'Name of docker image'
+    required: true
+  tag:
+    description: 'The specific tag that wants to monitor, default to latest'
+    required: false
+    default: 'latest'
+  username:
+    description: 'The username of the dockerhub'
+    required: true
+  password:
+    description: 'The password of the dockerhub'
+    required: true
+outputs:
+  has_update:
+    description: 'The image has update or not'
+  update_time:
+    description: 'The time when the update release'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

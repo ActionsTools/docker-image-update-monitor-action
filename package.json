@@ -1,0 +1,36 @@
+{
+  "name": "docker-image-update-monitor",
+  "version": "1.0.0",
+  "description": "Monitor docker images update on image registry using GitHub Actions",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node16 --outfile=dist/index.js",
+    "test": "esbuild src/index.ts --bundle --platform=node --target=node16 --outfile=dist/index.js && act"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ActionsTools/docker-image-update-monitor.git"
+  },
+  "keywords": [
+    "action",
+    "Docker",
+    "Registry",
+    "Update"
+  ],
+  "author": "Yujie Liu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ActionsTools/docker-image-update-monitor/issues"
+  },
+  "homepage": "https://github.com/ActionsTools/docker-image-update-monitor#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
+    "axios": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "esbuild": "^0.12.16",
+    "typescript": "^4.9.3"
+  }
+}
