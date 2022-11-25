@@ -14585,9 +14585,8 @@ var Dockerhub = class {
     return response.data;
   }
   async getLastUpdateTime(image, tag = "latest") {
-    const data = await this.getImageDetail(image, tag);
-    const dto = JSON.parse(data);
-    if (dto.results.length != 0) {
+    const dto = await this.getImageDetail(image, tag);
+    if (dto.results.length !== 0) {
       return dto.results[0].last_updated;
     }
     return "";
@@ -14629,13 +14628,19 @@ async function run() {
 }
 run();
 function getCacheFile(image, tag = "latest") {
-  const file = import_fs.default.readFileSync(image + "_" + tag + ".json", "utf-8");
-  return JSON.parse(file);
+  const escapedName = image.replace("/", "#");
+  try {
+    const file = import_fs.default.readFileSync(escapedName + "_" + tag + ".json", "utf-8");
+    return JSON.parse(file);
+  } catch (error) {
+    return null;
+  }
 }
 function saveCacheFile(image, tag = "latest", lastUpdateTime) {
+  const escapedName = image.replace("/", "#");
   const cache = new CacheDo(image, tag, lastUpdateTime);
   const json = JSON.stringify(cache);
-  import_fs.default.writeFileSync(image + "_" + tag + ".json", json);
+  import_fs.default.writeFileSync(escapedName + "_" + tag + ".json", json);
 }
 /*!
  * mime-db

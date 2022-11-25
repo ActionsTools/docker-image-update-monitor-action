@@ -40,13 +40,19 @@ run();
  */
 function getCacheFile(image: string, tag: string = 'latest') : CacheDo | null {
 
-    const file = fs.readFileSync(image +"_"+tag+".json", 'utf-8');
-    return JSON.parse(file);
+    const escapedName= image.replace("/",'#');
+    try {
+        const file = fs.readFileSync(escapedName +"_"+tag+".json", 'utf-8');
+        return JSON.parse(file);
+    }catch (error){
+        return null;
+    }
 }
 
 function saveCacheFile(image: string, tag: string = 'latest', lastUpdateTime: Date) {
 
+    const escapedName= image.replace("/",'#');
     const cache = new CacheDo(image, tag, lastUpdateTime)
     const json = JSON.stringify(cache);
-    fs.writeFileSync(image +"_"+tag+".json", json);
+    fs.writeFileSync(escapedName +"_"+tag+".json", json);
 }
