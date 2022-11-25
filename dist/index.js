@@ -14631,7 +14631,8 @@ function getCacheFile(image, tag = "latest") {
   const escapedName = image.replace("/", "#");
   try {
     const file = import_fs.default.readFileSync(escapedName + "_" + tag + ".json", "utf-8");
-    return JSON.parse(file);
+    const json = JSON.parse(file);
+    return new CacheDo(json.name, json.tag, new Date(json.cacheUpdateTime));
   } catch (error) {
     return null;
   }
