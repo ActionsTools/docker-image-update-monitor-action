@@ -19,7 +19,7 @@ jobs:
       with:
         # TODO: Still bug here, no such file
         key: sharelatex#sharelatex_latest-${{ github.run_attempt }}
-        restore-key: |
+        restore-keys: |
           sharelatex#sharelatex_latest-
         path: sharelatex#sharelatex_latest.json
 
