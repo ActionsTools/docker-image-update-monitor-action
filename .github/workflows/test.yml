@@ -2,8 +2,8 @@ name: "test"
 on:
   workflow_dispatch:
   schedule:
-    # Every 30 minute
-    - cron: '*/5 * * * *'
+    # Every hour
+    - cron: '0 */1 * * *'
 
 jobs:
   test:
