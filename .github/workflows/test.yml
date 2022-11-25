@@ -17,7 +17,7 @@ jobs:
     - name: Cache file
       uses: actions/cache@v3
       with:
-        key: sharelatex#sharelatex_latest
+        key: sharelatex#sharelatex_latest-${{ hashFiles('sharelatex#sharelatex_latest.json') }}
         path: sharelatex#sharelatex_latest.json
 
     - name: Check DockerHub image with latest tag
