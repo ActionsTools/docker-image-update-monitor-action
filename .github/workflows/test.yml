@@ -44,7 +44,7 @@ jobs:
         echo ${{ steps.dockerhub.outputs.update_time }}
 
     - name: Send email if it has update
-      if: ${{ steps.dockerhub.outputs.has_update }} == false
+      if: ${{ steps.dockerhub.outputs.has_update }} == true
       uses: dawidd6/action-send-mail@v3
       with:
         server_address: smtp.gmail.com
@@ -52,6 +52,6 @@ jobs:
         username: ${{secrets.MAIL_USERNAME}}
         password: ${{secrets.MAIL_PASSWORD}}
         secure: true
-        subject: The image ${env.IMAGE} in breach ${{ env.TAG }} has update
+        subject: The image ${{env.IMAGE}} in breach ${{ env.TAG }} has update
         to: ${{ secrets.MAIL_RECEIVER}}
         from: Docker Image Update Monitor
