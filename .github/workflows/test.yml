@@ -42,4 +42,3 @@ jobs:
       run: |
         echo ${{ steps.dockerhub.outputs.has_update }}
         echo ${{ steps.dockerhub.outputs.update_time }}
-        echo ${{ env.EVENT }}
