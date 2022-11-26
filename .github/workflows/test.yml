@@ -1,9 +1,13 @@
 name: "test"
 on:
   workflow_dispatch:
-  schedule:
-    # Every hour
-    - cron: '0 */1 * * *'
+  #schedule:
+  #  # Every hour
+  #  - cron: '0 */1 * * *'
+
+env:
+  IMAGE: sharelatex/sharelatex
+  TAG: latest
 
 jobs:
   test:
@@ -14,23 +18,28 @@ jobs:
       with:
         path: "./"
 
+    - name: Create ENV EVENT
+      run: |
+        echo EVENT=`echo ${{ env.IMAGE }} | sed 's#/#\##g'`_${{ env.TAG }} >> $GITHUB_ENV
+
       # Restore the cache saved in the last run
     - name: Cache file
       uses: actions/cache@v3
       with:
-        key: sharelatex#sharelatex_latest-${{ github.run_number }}
+        key: ${{ env.EVENT }}-${{ github.run_number }}
         restore-keys: |
-          sharelatex#sharelatex_latest-
-        path: sharelatex#sharelatex_latest.json
+          ${{ env.EVENT }}-
+        path: ${{ env.EVENT }}.json
 
     - name: Check DockerHub image with latest tag
-      id: dockerhub_latest
+      id: dockerhub
       uses: ./
-      with: 
-        image: 'sharelatex/sharelatex'
-        tag: 'latest'
+      with:
+        image: ${{ env.IMAGE }}
+        tag: ${{ env.TAG }}
 
     - name: Show results
       run: |
-        echo ${{ steps.dockerhub_latest.outputs.has_update }}
-        echo ${{ steps.dockerhub_latest.outputs.update_time }}
+        echo ${{ steps.dockerhub.outputs.has_update }}
+        echo ${{ steps.dockerhub.outputs.update_time }}
+        echo ${{ env.EVENT }}
