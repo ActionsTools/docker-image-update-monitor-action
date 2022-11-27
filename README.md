@@ -2,10 +2,10 @@
 Monitor docker images update on image registry using GitHub Actions
 
 ## Usage
-A demo is shown below. What you need to do is:
+A demo is shown below. You shouldn't change the steps marked as `[Necessary]`. What you need to do is:
 - [Must] Set the image name and tag (default to latest) in `env` part, currently only support public images in DockerHub.
 - [optional] Set the time interval checking the update in `on-schedule-cron` part.
-- [optional] Set the notification-related info, like email notifier in the last job.
+- [optional] Set the notification-related info, like email notifier in the last step.
 
 ```yaml
 name: "test"
@@ -22,16 +22,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        path: "./"
-
+      # [Necessary] Create ENV Event to escape \ in image name
     - name: Create ENV EVENT
       run: |
         echo EVENT=`echo ${{ env.IMAGE }} | sed 's#/#\##g'`_${{ env.TAG }} >> $GITHUB_ENV
 
-      # Restore the cache saved in the last run
+      # [Necessary] Restore the cache saved in the last run
     - name: Cache file
       uses: actions/cache@v3
       with:
@@ -40,6 +36,7 @@ jobs:
           ${{ env.EVENT }}-
         path: ${{ env.EVENT }}.json
 
+      # [Necessary] Check update
     - name: Check DockerHub image with latest tag
       id: dockerhub
       uses: ActionsTools/docker-image-update-monitor-action@v1.0.0
