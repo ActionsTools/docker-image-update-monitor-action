@@ -1,10 +1,11 @@
 name: "test"
 on:
   workflow_dispatch:
-  #schedule:
-  #  # Every hour
-  #  - cron: '0 */1 * * *'
+  schedule:
+    # Every hour
+    - cron: '0 */1 * * *'
 
+# Setting up image name and tag (default to latest)
 env:
   IMAGE: sharelatex/sharelatex
   TAG: latest
