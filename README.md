@@ -50,7 +50,7 @@ jobs:
         echo ${{ steps.dockerhub.outputs.update_time }}
 
     - name: Send email if it has update
-      if: ${{ steps.dockerhub.outputs.has_update }} == true
+      if: ${{ steps.dockerhub.outputs.has_update == 'true' }}
       uses: dawidd6/action-send-mail@v3
       with:
         server_address: smtp.gmail.com
