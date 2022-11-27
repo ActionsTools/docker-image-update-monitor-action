@@ -3,7 +3,7 @@ Monitor docker images update on image registry using GitHub Actions
 
 ## Usage
 A demo is shown below. What you need to do is:
-- [Must] Set the image name in `env` part, currently only support public images in DockerHub.
+- [Must] Set the image name and tag (default to latest) in `env` part, currently only support public images in DockerHub.
 - [optional] Set the time interval checking the update in `on-schedule-cron` part.
 - [optional] Set the notification-related info, like email notifier in the last job.
 
